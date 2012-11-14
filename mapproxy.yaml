@@ -28,35 +28,17 @@ services:
       fees: 'None'
 
 layers:
-#  - name: osm
-#    title: Omniscale OSM WMS - osm.omniscale.net
-#    sources: [osm_cache]
   - name: CTX
     title: CTX Mosaic
     sources: [ctx_cache]
-    supported_srs: ['EPSG:900913', 'EPSG:4326']
-  # - name: osm_full_example
-  #   title: Omniscale OSM WMS - osm.omniscale.net
-  #   sources: [osm_cache_full_example]
+    supported_srs: ['EPSG:4326']
     
 caches:
-#  osm_cache:
-#    grids: [GLOBAL_MERCATOR, global_geodetic_sqrt2]
-#    sources: [osm_wms]
-
   ctx_cache:
-    grids: [GLOBAL_MERCATOR, global_geodetic_sqrt2]
+    #grids: [GLOBAL_MERCATOR, global_geodetic_sqrt2]
+    grids: [global_mars]
     sources: [ctx_tiles]
   
-  # osm_cache_full_example:
-  #   meta_buffer: 20
-  #   meta_size: [5, 5]
-  #   format: image/png
-  #   request_format: image/tiff
-  #   link_single_color_images: true
-  #   use_direct_from_level: 5
-  #   grids: [grid_full_example]
-  #   sources: [osm_wms, overlay_full_example]
 
 
 sources:
@@ -68,10 +50,11 @@ sources:
 
   ctx_tiles:
     type: tile
+    grid: global_mars
     url: http://commondatastorage.googleapis.com/ctx_mosaic_1/%(quadkey_path)s.png
     transparent: true
     format: ['image/png', 'image/jpg']
-    supported_srs: ['EPSG:900913']
+    supported_srs: ['EPSG:4326']
     #supported_srs: ['IAU2000:49900']
     
 
@@ -101,6 +84,9 @@ grids:
     res_factor: 'sqrt2'
     origin: nw
     srs: 'EPSG:900913'
+  global_mars:
+    srs: 'EPSG:4326'
+    origin: nw
   # grid_full_example:
   #   tile_size: [512, 512]
   #   srs: 'EPSG:900913'
@@ -137,6 +123,7 @@ globals:
     base_dir: './cache_data'
     # where to store lockfiles
     lock_dir: './cache_data/locks'
+    grid: global_mars
   #   # request x*y tiles in one step
   #   meta_size: [4, 4]
   #   # add a buffer on all sides (in pixel) when requesting
