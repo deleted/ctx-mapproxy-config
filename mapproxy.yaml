@@ -47,6 +47,13 @@ sources:
     req:
       url: http://osm.omniscale.net/proxy/service?
       layers: osm
+    on_error:
+      404:
+        response: transparent
+        cache: true
+      other:
+        response: '#ff0000'
+        cache: false
 
   ctx_tiles:
     type: tile
