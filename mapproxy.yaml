@@ -42,19 +42,6 @@ caches:
 
 
 sources:
-  osm_wms:
-    type: wms
-    req:
-      url: http://osm.omniscale.net/proxy/service?
-      layers: osm
-    on_error:
-      404:
-        response: transparent
-        cache: true
-      other:
-        response: '#ff0000'
-        cache: false
-
   ctx_tiles:
     type: tile
     grid: global_mars
@@ -63,6 +50,14 @@ sources:
     format: ['image/png', 'image/jpg']
     supported_srs: ['EPSG:4326']
     #supported_srs: ['IAU2000:49900']
+    on_error:
+      404:
+        response: transparent
+        cache: true
+      other:
+        response: '#ff0000'
+        cache: false
+
     
 
   # overlay_full_example:
